@@ -5,6 +5,15 @@
     <title>Recipe Home</title>
 </head>
 <body>
-<h1>My Recipes</h1>
+<h1>My Favorite Recipes</h1>
+
+<ul th:each="recipe: ${recipes}" style="list-style: none; font-size: 20px;">
+    <li th:text="${recipe.description}"></li>
+    <h5 >Ingredients</h5>
+        <ul th:each="r: ${recipe.ingredients}">
+            <li th:text="${r.description}"></li>
+        </ul>
+</ul>
+
 </body>
 </html>
