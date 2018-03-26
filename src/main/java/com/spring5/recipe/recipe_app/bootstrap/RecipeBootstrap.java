@@ -132,14 +132,14 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
 
         guac.setNotes(guacNotes);
 
-        guac.addIngredient(new Ingredient("avocados-ripe", new BigDecimal(2),eachUom,guac));
-        guac.addIngredient(new Ingredient("salt-kosher", new BigDecimal(.5),tspUom,guac));
-        guac.addIngredient(new Ingredient("lime juice or lemon juice-fresh", new BigDecimal(1),tbspUom,guac));
-        guac.addIngredient(new Ingredient("red onion-minced", new BigDecimal(.25),cupUom,guac));
-        guac.addIngredient(new Ingredient("serrano chiles-remove stems and seeds", new BigDecimal(2),eachUom,guac));
-        guac.addIngredient(new Ingredient("cilantro-finely chopped", new BigDecimal(2),tbspUom,guac));
-        guac.addIngredient(new Ingredient("black pepper-freshly grated", new BigDecimal(1),dashUom,guac));
-        guac.addIngredient(new Ingredient("ripe tomato-chopped, seeds and pulp removed", new BigDecimal(.5),eachUom,guac));
+        guac.addIngredient(new Ingredient("avocados-ripe", new BigDecimal(2),eachUom));
+        guac.addIngredient(new Ingredient("salt-kosher", new BigDecimal(.5),tspUom));
+        guac.addIngredient(new Ingredient("lime juice or lemon juice-fresh", new BigDecimal(1),tbspUom));
+        guac.addIngredient(new Ingredient("red onion-minced", new BigDecimal(.25),cupUom));
+        guac.addIngredient(new Ingredient("serrano chiles-remove stems and seeds", new BigDecimal(2),eachUom));
+        guac.addIngredient(new Ingredient("cilantro-finely chopped", new BigDecimal(2),tbspUom));
+        guac.addIngredient(new Ingredient("black pepper-freshly grated", new BigDecimal(1),dashUom));
+        guac.addIngredient(new Ingredient("ripe tomato-chopped, seeds and pulp removed", new BigDecimal(.5),eachUom));
 
         guac.getCategories().add(american);
         guac.getCategories().add(mexican);
@@ -189,26 +189,26 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
 
         chknTacos.setNotes(chknTacoNotes);
 
-        chknTacos.addIngredient(new Ingredient("Ancho chili powder", new BigDecimal(2),tbspUom,chknTacos));
-        chknTacos.addIngredient(new Ingredient("dried oregano",new BigDecimal(1),tspUom,chknTacos));
-        chknTacos.addIngredient(new Ingredient("dried cumin",new BigDecimal(1),tspUom,chknTacos));
-        chknTacos.addIngredient(new Ingredient("sugar",new BigDecimal(1),tspUom,chknTacos));
-        chknTacos.addIngredient(new Ingredient("salt",new BigDecimal(.5),tspUom,chknTacos));
-        chknTacos.addIngredient(new Ingredient("garlic clove, finely chopped",new BigDecimal(1),eachUom,chknTacos));
-        chknTacos.addIngredient(new Ingredient("orange zest, finely grated",new BigDecimal(1),tbspUom,chknTacos));
-        chknTacos.addIngredient(new Ingredient("orange juice, fresh-squeezed",new BigDecimal(3),tbspUom,chknTacos));
-        chknTacos.addIngredient(new Ingredient("olive oil",new BigDecimal(2),tbspUom,chknTacos));
-        chknTacos.addIngredient(new Ingredient("boneless chicken thighs-skinless",new BigDecimal(4),eachUom,chknTacos));
-        chknTacos.addIngredient(new Ingredient("corn tortillas",new BigDecimal(8),eachUom,chknTacos));
-        chknTacos.addIngredient(new Ingredient("baby arugula",new BigDecimal(3),ounceUom,chknTacos));
-        chknTacos.addIngredient(new Ingredient("avocados-medium ripe-sliced",new BigDecimal(2),eachUom,chknTacos));
-        chknTacos.addIngredient(new Ingredient("radish-thinly sliced",new BigDecimal(4),eachUom,chknTacos));
-        chknTacos.addIngredient(new Ingredient("cherry tomatoes-halved",new BigDecimal(.5),pintUom,chknTacos));
-        chknTacos.addIngredient(new Ingredient("red onion-thinly sliced",new BigDecimal(.25),eachUom,chknTacos));
-        chknTacos.addIngredient(new Ingredient("cilantro-roughly chopped",new BigDecimal(2),eachUom,chknTacos));
-        chknTacos.addIngredient(new Ingredient("sour cream-thinned with the milk",new BigDecimal(.5),cupUom,chknTacos));
-        chknTacos.addIngredient(new Ingredient("milk",new BigDecimal(.25),cupUom,chknTacos));
-        chknTacos.addIngredient(new Ingredient("lime",new BigDecimal(1),eachUom,chknTacos));
+        chknTacos.addIngredient(new Ingredient("Ancho chili powder", new BigDecimal(2),tbspUom));
+        chknTacos.addIngredient(new Ingredient("dried oregano",new BigDecimal(1),tspUom));
+        chknTacos.addIngredient(new Ingredient("dried cumin",new BigDecimal(1),tspUom));
+        chknTacos.addIngredient(new Ingredient("sugar",new BigDecimal(1),tspUom));
+        chknTacos.addIngredient(new Ingredient("salt",new BigDecimal(.5),tspUom));
+        chknTacos.addIngredient(new Ingredient("garlic clove, finely chopped",new BigDecimal(1),eachUom));
+        chknTacos.addIngredient(new Ingredient("orange zest, finely grated",new BigDecimal(1),tbspUom));
+        chknTacos.addIngredient(new Ingredient("orange juice, fresh-squeezed",new BigDecimal(3),tbspUom));
+        chknTacos.addIngredient(new Ingredient("olive oil",new BigDecimal(2),tbspUom));
+        chknTacos.addIngredient(new Ingredient("boneless chicken thighs-skinless",new BigDecimal(4),eachUom));
+        chknTacos.addIngredient(new Ingredient("corn tortillas",new BigDecimal(8),eachUom));
+        chknTacos.addIngredient(new Ingredient("baby arugula",new BigDecimal(3),ounceUom));
+        chknTacos.addIngredient(new Ingredient("avocados-medium ripe-sliced",new BigDecimal(2),eachUom));
+        chknTacos.addIngredient(new Ingredient("radish-thinly sliced",new BigDecimal(4),eachUom));
+        chknTacos.addIngredient(new Ingredient("cherry tomatoes-halved",new BigDecimal(.5),pintUom));
+        chknTacos.addIngredient(new Ingredient("red onion-thinly sliced",new BigDecimal(.25),eachUom));
+        chknTacos.addIngredient(new Ingredient("cilantro-roughly chopped",new BigDecimal(2),eachUom));
+        chknTacos.addIngredient(new Ingredient("sour cream-thinned with the milk",new BigDecimal(.5),cupUom));
+        chknTacos.addIngredient(new Ingredient("milk",new BigDecimal(.25),cupUom));
+        chknTacos.addIngredient(new Ingredient("lime",new BigDecimal(1),eachUom));
 
         chknTacos.getCategories().add(american);
         chknTacos.getCategories().add(mexican);
