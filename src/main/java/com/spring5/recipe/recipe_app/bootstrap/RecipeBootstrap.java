@@ -5,6 +5,7 @@ import com.spring5.recipe.recipe_app.repositories.CategoryRepository;
 import com.spring5.recipe.recipe_app.repositories.RecipeRepository;
 import com.spring5.recipe.recipe_app.repositories.UnitOfMeasureRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
