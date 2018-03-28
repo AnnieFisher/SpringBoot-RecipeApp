@@ -7,6 +7,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import static java.lang.Long.valueOf;
+
 @Slf4j
 @Controller
 public class RecipeController {
@@ -18,8 +20,8 @@ public class RecipeController {
     }
 
     @RequestMapping("/recipe/recipeDetails/{id}")
-    public String getRecipe(@PathVariable Long id,  Model model){
-        model.addAttribute("recipe", recipeService.findById(id));
+    public String getRecipe(@PathVariable String id,  Model model){
+        model.addAttribute("recipe", recipeService.findById(valueOf(id)));
         return "recipe/recipeDetails";
     }
 }
