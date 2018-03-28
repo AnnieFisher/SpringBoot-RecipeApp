@@ -6,11 +6,15 @@
 
     <!--bootstrap css cdn-->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"
+          th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+
+    <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
 
     <!--boostrap js cdn-->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"
+            th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 
 </head>
 <body>
@@ -22,10 +26,8 @@
                         <h1 class="card-title text-center bg-dark text-white">My Recipes!</h1>
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive" th:if="${not #lists.isEmpty(recipes)}">
-                            <ul class="list-group list-group-flush" th:each="recipe : ${recipes}">
-                                <li class="list-group-item" th:text="${recipe.description}"></li>
-                            </ul>
+                        <div class="list-group-flush" th:each="recipe : ${recipes}">
+                            <a href="" class="list-group-item list-group-item-action" th:text="${recipe.description}"></a>
                         </div>
                     </div>
                 </div>
