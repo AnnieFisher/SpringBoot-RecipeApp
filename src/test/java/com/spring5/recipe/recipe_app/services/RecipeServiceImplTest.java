@@ -14,6 +14,7 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
+import static java.lang.Long.valueOf;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -53,7 +54,7 @@ public class RecipeServiceImplTest {
     }
 
     @Test
-    public void getRecipeCoomandByIdTest() throws Exception {
+    public void getRecipeCommandByIdTest() throws Exception {
         Recipe recipe = new Recipe();
         recipe.setId(1L);
         Optional<Recipe> recipeOptional = Optional.of(recipe);
@@ -78,11 +79,19 @@ public class RecipeServiceImplTest {
         HashSet recipesData = new HashSet();
         recipesData.add(recipe);
 
-        when(recipeService.getRecipes()).thenReturn(recipesData);
+        when(recipeRepository.findAll()).thenReturn(recipesData);
 
         Set<Recipe> recipes = recipeService.getRecipes();
 
         assertEquals(recipes.size(), 1);
         verify(recipeRepository, times(1)).findAll();
+        verify(recipeRepository, never()).findById(anyLong());
+    }
+
+    @Test
+    public void deleteRecipe() throws Exception {
+        Long id = valueOf(2);
+        recipeService.deleteById(id);
+        verify(recipeRepository,times(1)).deleteById(anyLong());
     }
 }
