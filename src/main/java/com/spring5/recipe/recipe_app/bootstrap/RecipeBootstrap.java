@@ -5,7 +5,6 @@ import com.spring5.recipe.recipe_app.repositories.CategoryRepository;
 import com.spring5.recipe.recipe_app.repositories.RecipeRepository;
 import com.spring5.recipe.recipe_app.repositories.UnitOfMeasureRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
@@ -58,7 +57,7 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
         if(!dashUomOptional.isPresent()){
             throw new RuntimeException("UOM Not Found");
         }
-        Optional<UnitOfMeasure> eachUomOptional = unitOfMeasureRepository.findByDescription("Each");
+        Optional<UnitOfMeasure> eachUomOptional = unitOfMeasureRepository.findByDescription(" ");
         if(!eachUomOptional.isPresent()){
             throw new RuntimeException("UOM Not Found");
         }
@@ -105,7 +104,9 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
         guac.setCookTime(0);
         guac.setDifficulty(Difficulty.EASY);
         guac.setDirections("1 Cut avocado, remove flesh: Cut the avocados in half. Remove seed. Score the inside of the avocado with a blunt knife and scoop out the flesh with a spoon.Place in a bowl.\n" +
+                "\n" +
                 "2 Mash with a fork: Using a fork, roughly mash the avocado. (Don't overdo it! The guacamole should be a little chunky.)\n" +
+                "\n" +
                 "3 Add salt, lime juice, and the rest: Sprinkle with salt and lime (or lemon) juice. The acid in the lime juice will provide some balance to the richness of the avocado and will help delay the avocados from turning brown.\n" +
                 "\n" +
                 "Add the chopped onion, cilantro, black pepper, and chiles. Chili peppers vary individually in their hotness. So, start with a half of one chili pepper and add to the guacamole to your desired degree of hotness.\n" +
@@ -165,7 +166,6 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
                 "\n" +
                 "Set aside to marinate while the grill heats and you prepare the rest of the toppings.\n" +
                 "\n" +
-                "\n" +
                 "3 Grill the chicken: Grill the chicken for 3 to 4 minutes per side, or until a thermometer inserted into the thickest part of the meat registers 165F. Transfer to a plate and rest for 5 minutes.\n" +
                 "\n" +
                 "4 Warm the tortillas: Place each tortilla on the grill or on a hot, dry skillet over medium-high heat. As soon as you see pockets of the air start to puff up in the tortilla, turn it with tongs and heat for a few seconds on the other side.\n" +
@@ -180,7 +180,6 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
                 "Any and every kind of leftover can go inside a warm tortilla, usually with a healthy dose of pickled jalapenos. I can always sniff out a late-night snacker when the aroma of tortillas heating in a hot pan on the stove comes wafting through the house.\n" +
                 "\n" +
                 "Today’s tacos are more purposeful – a deliberate meal instead of a secretive midnight snack!\n" +
-                "\n" +
                 "\n" +
                 "First, I marinate the chicken briefly in a spicy paste of ancho chile powder, oregano, cumin, and sweet orange juice while the grill is heating. You can also use this time to prepare the taco toppings.\n" +
                 "\n" +

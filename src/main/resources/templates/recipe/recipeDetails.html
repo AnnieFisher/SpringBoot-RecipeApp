@@ -23,38 +23,38 @@
             <div class="col-md-6 offset-md-3 description">
                 <div class="card bg-light">
                     <div class="card-header">
-                        <h1 class="card-title text-center bg-dark text-white">Recipe Title</h1>
+                        <h1 class="card-title text-center bg-dark text-white" th:text="${recipe.description}">Recipe Title</h1>
                     </div>
                     <div class="card-body">
                         <div>
-                            <ul class="list-group-flush" th:each="recipe : ${recipes}">
-                                <li class="list-group-item list-group-item-action">Categories</li>
-                                    <ul class="list-group" th:each="r : ${recipe.categories}">
+                            <ul class="list-group-flush">
+                                <li class="list-group-item list-group-item-action bg-secondary text-white">Categories</li>
+                                    <ul class="list-group" th:each="cat : ${recipe.categories}">
                                         <li class="list-group-item" th:remove="all">Category 1</li>
                                         <li class="list-group-item" th:remove="all">Category 2</li>
-                                        <li class="list-group-item" th:text="${r}"></li>
+                                        <li class="list-group-item" th:text="${cat.description}"></li>
                                     </ul>
-                                <li class="list-group-item list-group-item-action">Prep Time</li>
+                                <li class="list-group-item list-group-item-action bg-secondary text-white">Prep Time</li>
                                     <ul class="list-group">
-                                        <li class="list-group-item" th:text="${recipe.prepTime}">"prep time"</li>
+                                        <li class="list-group-item" th:text="${recipe.prepTime}+' minutes'">"prep time"</li>
                                     </ul>
-                                <li class="list-group-item list-group-item-action">Cook Time</li>
+                                <li class="list-group-item list-group-item-action bg-secondary text-white">Cook Time</li>
                                     <ul class="list-group">
-                                        <li class="list-group-item" th:text="${recipe.cookTime}">"cook time"</li>
+                                        <li class="list-group-item" th:text="${recipe.cookTime}+' minutes'">"cook time"</li>
                                     </ul>
-                                <li class="list-group-item list-group-item-action">Source</li>
+                                <li class="list-group-item list-group-item-action bg-secondary text-white">Source</li>
                                     <ul class="list-group">
                                         <li class="list-group-item" th:text="${recipe.source}">"source"</li>
                                     </ul>
-                                <li class="list-group-item list-group-item-action">Difficulty</li>
+                                <li class="list-group-item list-group-item-action bg-secondary text-white">Difficulty</li>
                                     <ul class="list-group">
                                         <li class="list-group-item" th:text="${recipe.difficulty}">"difficulty"</li>
                                     </ul>
-                                <li class="list-group-item list-group-item-action">Servings</li>
+                                <li class="list-group-item list-group-item-action bg-secondary text-white">Servings</li>
                                     <ul class="list-group">
                                         <li class="list-group-item" th:text="${recipe.servings}">"servings"</li>
                                     </ul>
-                                <li class="list-group-item list-group-item-action">URL</li>
+                                <li class="list-group-item list-group-item-action bg-secondary text-white">URL</li>
                                     <ul class="list-group">
                                         <li class="list-group-item" th:text="${recipe.url}">"url"</li>
                                     </ul>
@@ -64,19 +64,27 @@
                 </div>
             </div>
         </div>
+
+
+
+
+
+
+
         <div class="row" style="margin-top: 10px">
             <div class="col-md-6 offset-md-3 ingredients">
                 <div class="card bg-light">
                     <div class="card-header">
                         <h1 class="card-title text-center bg-dark text-white">Ingredients</h1>
                     </div>
-                    <div class="card-body" th:each="recipe : ${recipes}">
-                        <ul class="list-group-flush" th:each="r : ${recipe.ingredients}">
+                    <div class="card-body">
+                        <ul class="list-group-flush" th:each="ingredient : ${recipe.ingredients}">
                             <li class="list-group-item" th:remove="all">ingredient 1</li>
                             <li class="list-group-item" th:remove="all">ingredient 2</li>
                             <li class="list-group-item" th:remove="all">ingredient 3</li>
                             <li class="list-group-item" th:remove="all">ingredients 4</li>
-                            <li class="list-group-item" th:text="${recipe.ingredients}"></li>
+                            <li class="list-group-item" th:text="${#numbers.formatDecimal(ingredient.amount,0,2)}
+                            +' ' +${ingredient.uom.description}+' '  +${ingredient.description}"></li>
                         </ul>
                     </div>
                 </div>
@@ -88,8 +96,9 @@
                     <div class="card-header">
                         <h1 class="card-title text-center bg-dark text-white">Directions</h1>
                     </div>
-                    <div class="card-body" th:each="recipe : ${recipes}">
-                        <p th:text="${recipe.directions}">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    <div class="card-body">
+                        <p th:utext="${#strings.replace( #strings.escapeXml(recipe.directions),T(java.lang.System).getProperty('line.separator'),'&lt;br /&gt;')}">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                             Phasellus ultrices orci nec elit congue, a feugiat nisl gravida.
                             Nullam vulputate metus non sollicitudin porttitor.
                             In maximus nibh sed metus dictum, nec porta risus varius.
@@ -114,8 +123,9 @@
                     <div class="card-header">
                         <h1 class="card-title text-center bg-dark text-white">Notes</h1>
                     </div>
-                    <div class="card-body" th:each="recipe : ${recipes}">
-                        <p th:text="${recipe.notes}">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ipsum elit,
+                    <div class="card-body">
+                        <p th:utext="${#strings.replace( #strings.escapeXml(recipe.notes.recipeNotes),T(java.lang.System).getProperty('line.separator'),'&lt;br /&gt;')}">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ipsum elit,
                             porttitor non nulla vel, efficitur rhoncus nunc. Quisque quis sem interdum,
                             tincidunt dui sit amet, tristique arcu. Aenean vitae sagittis ex, et ultrices
                             dolor. Duis vitae eleifend eros. Curabitur aliquet ex sed turpis ullamcorper

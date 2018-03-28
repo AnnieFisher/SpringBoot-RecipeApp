@@ -33,7 +33,6 @@ public class IndexControllerTest {
 
     @Before
     public void setUp() throws Exception {
-
         MockitoAnnotations.initMocks(this);
         controller = new IndexController(recipeService);
     }
