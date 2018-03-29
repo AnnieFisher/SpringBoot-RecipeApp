@@ -73,7 +73,7 @@
                         <li class="list-group-item" th:text="${#numbers.formatDecimal(ingredient.amount,0,2)}
                                 +' ' +${ingredient.uom.description}+' '  +${ingredient.description}"></li>
                     </ul>
-                    <a href="" th:href="@{'/recipe/'+${recipe.id} +'/ingredients'}">Edit Ingredients</a>
+                    <a class="btn btn-secondary" href="" th:href="@{'/recipe/'+${recipe.id} +'/ingredients'}" style="width: 100%;">Edit Ingredients</a>
                 </div>
             </div>
 

@@ -4,15 +4,18 @@ import com.spring5.recipe.recipe_app.commands.IngredientCommand;
 import com.spring5.recipe.recipe_app.commands.RecipeCommand;
 import com.spring5.recipe.recipe_app.services.IngredientService;
 import com.spring5.recipe.recipe_app.services.RecipeService;
+import com.spring5.recipe.recipe_app.services.UnitOfMeasureService;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 public class IngredientControllerTest {
@@ -23,6 +26,9 @@ public class IngredientControllerTest {
     @Mock
     IngredientService ingredientService;
 
+    @Mock
+    UnitOfMeasureService unitOfMeasureService;
+
     IngredientController controller;
 
     MockMvc mockMvc;
@@ -30,7 +36,7 @@ public class IngredientControllerTest {
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        controller = new IngredientController(recipeService, ingredientService);
+        controller = new IngredientController(recipeService, ingredientService, unitOfMeasureService);
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
     }
 
@@ -61,6 +67,26 @@ public class IngredientControllerTest {
                 .andExpect(model().attributeExists("ingredient"));
     }
 
+    @Test
+    public void testSaveOrUpdate() throws Exception {
+        //given
+        IngredientCommand command = new IngredientCommand();
+        command.setId(3L);
+        command.setRecipeId(2L);
+
+        //when
+        when(ingredientService.saveIngredientCommand(any())).thenReturn(command);
+
+        //then
+        mockMvc.perform(post("/recipe/2/ingredient")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("id", "")
+                .param("description", "some string")
+        )
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/recipe/2/ingredient/3/show"));
+
+    }
 
 
 
