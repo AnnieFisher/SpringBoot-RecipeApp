@@ -20,15 +20,15 @@
 
 <div class="container-fluid" style="margin-top: 20px">
     <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-            <form  th:object="${recipe}" th:action="@{/recipe/}"  method="post">
+        <div class="col-md-6 offset-md-3">
+            <form  th:object="${recipe}" th:action="@{/recipe/}" method="post">
                 <input type="hidden" th:field="*{id}"/>
-                <div class="pannel-group">
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <h1 class="panel-title">Edit Recipe Information</h1>
+                <div>
+                    <div class="card bg-light">
+                        <div class="card-header bg-dark text-white">
+                            <h1 class="card-title">Edit Recipe Information</h1>
                         </div>
-                        <div class="panel-body">
+                        <div class="card-body">
                             <div class="row">
                                 <div class="col-md-3 form-group">
                                     <label>Recipe Description:</label>
@@ -88,23 +88,24 @@
                             </div>
                         </div>
                     </div>
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
+                    <div class="card bg-light">
+                        <div class="card-header">
                             <div class="row">
                                 <div class="col-md-11 ">
-                                    <h1 class="panel-title">Ingredients</h1>
+                                    <h1 class="card-title bg-dark text-white">Ingredients</h1>
                                 </div>
                                 <div class="col-md-1">
                                     <a class="btn btn-default" href="#" role="button">Edit</a>
                                 </div>
                             </div>
                         </div>
-                        <div class="panel-body">
+                        <div class="card-body">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <ul>
+                                    <ul th:if="${not #lists.isEmpty(recipe.ingredients)}">
                                         <li th:remove="all">1 Cup of milk</li>
                                         <li th:remove="all">1 Teaspoon of chocolate</li>
+                                        <li>asdf</li>
                                         <li th:each="ingredient : ${recipe.ingredients}"
                                             th:text="${(ingredient.getAmount() +
                                         ' ' + ingredient.uom.getDescription() +
@@ -115,22 +116,22 @@
                             </div>
                         </div>
                     </div>
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <h1 class="panel-title">Directions</h1>
+                    <div class="card bg-light">
+                        <div class="card-header">
+                            <h1 class="card-title bg-dark text-white">Directions</h1>
                         </div>
-                        <div class="panel-body">
+                        <div class="card-body">
                             <div class="row">
                                 <div class="col-md-12 form-group">
                                     <textarea class="form-control" rows="3" th:field="*{directions}"></textarea></div>
                             </div>
                         </div>
                     </div>
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <h1 class="panel-title">Notes</h1>
+                    <div class="card bg-light">
+                        <div class="card-header">
+                            <h1 class="card-title bg-dark text-white">Notes</h1>
                         </div>
-                        <div class="panel-body">
+                        <div class="card-body">
                             <div class="row">
                                 <div class="col-md-12 form-group">
                                     <textarea class="form-control" rows="3" th:field="*{notes.recipeNotes}"></textarea>
@@ -144,6 +145,7 @@
         </div>
     </div>
 </div>
+
 
 </body>
 </html>
