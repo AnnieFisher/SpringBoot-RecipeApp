@@ -19,9 +19,15 @@
 <body>
 
 <div class="container">
-    <div class="mx-auto">
-        <h1 class="text-center bg-dark text-white" th:text="${recipe.description}">Recipe Title</h1>
-    </div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light mb-5">
+        <h1 class="mx-auto" th:text="${recipe.description}">Recipe Title</h1>
+        <a class="btn btn-outline-secondary btn-sm mr-2" href="" th:href="@{'/recipe/'+ ${recipe.id} +'/update'}">Update</a>
+        <a class="btn btn-outline-secondary btn-sm" href="" th:href="@{'/'}">All Recipes</a>
+    </nav>
+
+    <!--<div class="mx-auto" style="margin: 10px 0 20px 0">-->
+        <!--<h1 class="text-center bg-dark text-white" th:text="${recipe.description}">Recipe Title</h1>-->
+    <!--</div>-->
     <div class = "row">
         <div class="col-sm-4">
             <div>
@@ -73,7 +79,7 @@
                         <li class="list-group-item" th:text="${#numbers.formatDecimal(ingredient.amount,0,2)}
                                 +' ' +${ingredient.uom.description}+' '  +${ingredient.description}"></li>
                     </ul>
-                    <a class="btn btn-secondary" href="" th:href="@{'/recipe/'+${recipe.id} +'/ingredients'}" style="width: 100%;">Edit Ingredients</a>
+                    <a class="btn btn-secondary" href="" th:href="@{'/recipe/'+${recipe.id} +'/ingredients'}" style="width: 100%;">View/Edit Ingredients</a>
                 </div>
             </div>
 
