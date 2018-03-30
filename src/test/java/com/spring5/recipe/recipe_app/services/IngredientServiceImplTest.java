@@ -7,6 +7,7 @@ import com.spring5.recipe.recipe_app.converters.UnitOfMeasureCommandToUnitOfMeas
 import com.spring5.recipe.recipe_app.converters.UnitOfMeasureToUnitOfMeasureCommand;
 import com.spring5.recipe.recipe_app.model.Ingredient;
 import com.spring5.recipe.recipe_app.model.Recipe;
+import com.spring5.recipe.recipe_app.repositories.IngredientRepository;
 import com.spring5.recipe.recipe_app.repositories.RecipeRepository;
 import com.spring5.recipe.recipe_app.repositories.UnitOfMeasureRepository;
 import org.junit.Before;
@@ -32,6 +33,9 @@ public class IngredientServiceImplTest {
     @Mock
     UnitOfMeasureRepository unitOfMeasureRepository;
 
+    @Mock
+    IngredientRepository ingredientRepository;
+
     IngredientService ingredientService;
 
 
@@ -45,7 +49,7 @@ public class IngredientServiceImplTest {
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
         ingredientService = new IngredientServiceImpl(ingredientToIngredientCommand, ingredientCommandToIngredient,
-                recipeRepository, unitOfMeasureRepository);
+                recipeRepository, unitOfMeasureRepository,ingredientRepository);
     }
 
     @Test
@@ -84,7 +88,7 @@ public class IngredientServiceImplTest {
     }
 
     @Test
-    public void saveRecipeCommand()throws Exception{
+    public void saveIngredientCommand()throws Exception{
         IngredientCommand command = new IngredientCommand();
         command.setId(3L);
         command.setRecipeId(1L);
@@ -101,5 +105,12 @@ public class IngredientServiceImplTest {
         assertEquals(Long.valueOf(3L), savedCommand.getId());
         verify(recipeRepository, times(1)).findById(anyLong());
         verify(recipeRepository, times(1)).save(any(Recipe.class));
+    }
+
+    @Test
+    public void deleteIngredient() throws Exception {
+        Long id = valueOf(2);
+        ingredientService.deleteById(id);
+        verify(ingredientRepository,times(1)).deleteById(anyLong());
     }
 }
