@@ -5,6 +5,12 @@ import com.spring5.recipe.recipe_app.model.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import static java.lang.String.valueOf;
 import static org.junit.Assert.*;
 
 public class RecipeToRecipeCommandTest {
@@ -27,7 +33,6 @@ public class RecipeToRecipeCommandTest {
     @Before
     public void setUp() throws Exception {
         converter = new RecipeToRecipeCommand(
-                new CategoryToCategoryCommand(),
                 new IngredientToIngredientCommand(new UnitOfMeasureToUnitOfMeasureCommand()),
                 new NotesToNotesCommand());
     }
@@ -55,20 +60,20 @@ public class RecipeToRecipeCommandTest {
         recipe.setServings(SERVINGS);
         recipe.setSource(SOURCE);
         recipe.setUrl(URL);
-
         Notes notes = new Notes();
         notes.setId(NOTES_ID);
 
+        List<String> catList = new ArrayList<>();
+        List<String> enumNames = Stream.of(Categories.values()).map(Categories::name)
+                .collect(Collectors.toList());
+        String cat1 = valueOf(Categories.AMERICAN);
+        String cat2 = valueOf(Categories.CHINESE);
+        catList.add(cat1);
+        catList.add(cat2);
+
+        recipe.setCategoryList(catList);
+
         recipe.setNotes(notes);
-
-        Category category = new Category();
-        category.setId(CAT_ID_1);
-
-        Category category2 = new Category();
-        category2.setId(CAT_ID2);
-
-        recipe.getCategories().add(category);
-        recipe.getCategories().add(category2);
 
         Ingredient ingredient = new Ingredient();
         ingredient.setId(INGRED_ID_1);
@@ -94,7 +99,7 @@ public class RecipeToRecipeCommandTest {
         assertEquals(SOURCE, command.getSource());
         assertEquals(URL, command.getUrl());
         assertEquals(NOTES_ID, command.getNotes().getId());
-        assertEquals(2, command.getCategories().size());
+        assertEquals(2, command.getCategoryList().size());
         assertEquals(2, command.getIngredients().size());
 
     }

@@ -1,13 +1,20 @@
 package com.spring5.recipe.recipe_app.converters;
 
-import com.spring5.recipe.recipe_app.commands.CategoryCommand;
 import com.spring5.recipe.recipe_app.commands.IngredientCommand;
 import com.spring5.recipe.recipe_app.commands.NotesCommand;
 import com.spring5.recipe.recipe_app.commands.RecipeCommand;
+import com.spring5.recipe.recipe_app.model.Categories;
 import com.spring5.recipe.recipe_app.model.Difficulty;
 import com.spring5.recipe.recipe_app.model.Recipe;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import static java.lang.String.valueOf;
 import static org.junit.Assert.*;
 
 public class RecipeCommandToRecipeTest {
@@ -31,8 +38,7 @@ public class RecipeCommandToRecipeTest {
 
     @Before
     public void setUp() throws Exception {
-        converter = new RecipeCommandToRecipe(new CategoryCommandToCategory(),
-                new IngredientCommandToIngredient(new UnitOfMeasureCommandToUnitOfMeasure()),
+        converter = new RecipeCommandToRecipe(new IngredientCommandToIngredient(new UnitOfMeasureCommandToUnitOfMeasure()),
                 new NotesCommandToNotes());
     }
 
@@ -61,14 +67,15 @@ public class RecipeCommandToRecipeTest {
 
         recipeCommand.setNotes(notes);
 
-        CategoryCommand category = new CategoryCommand();
-        category.setId(CAT_ID_1);
+        List<String> catList = new ArrayList<>();
+        List<String> enumNames = Stream.of(Categories.values()).map(Categories::name)
+                .collect(Collectors.toList());
+        String cat1 = valueOf(Categories.AMERICAN);
+        String cat2 = valueOf(Categories.CHINESE);
+        catList.add(cat1);
+        catList.add(cat2);
 
-        CategoryCommand category2 = new CategoryCommand();
-        category2.setId(CAT_ID2);
-
-        recipeCommand.getCategories().add(category);
-        recipeCommand.getCategories().add(category2);
+        recipeCommand.setCategoryList(catList);
 
         IngredientCommand ingredient = new IngredientCommand();
         ingredient.setId(INGRED_ID_1);
@@ -93,7 +100,7 @@ public class RecipeCommandToRecipeTest {
         assertEquals(SOURCE, recipe.getSource());
         assertEquals(URL, recipe.getUrl());
         assertEquals(NOTES_ID, recipe.getNotes().getId());
-        assertEquals(2, recipe.getCategories().size());
+        assertEquals(2, recipe.getCategoryList().size());
         assertEquals(2, recipe.getIngredients().size());
     }
 }

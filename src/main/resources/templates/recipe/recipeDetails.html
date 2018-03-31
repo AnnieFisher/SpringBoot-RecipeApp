@@ -25,18 +25,15 @@
         <a class="btn btn-outline-secondary btn-sm" href="" th:href="@{'/'}">All Recipes</a>
     </nav>
 
-    <!--<div class="mx-auto" style="margin: 10px 0 20px 0">-->
-        <!--<h1 class="text-center bg-dark text-white" th:text="${recipe.description}">Recipe Title</h1>-->
-    <!--</div>-->
     <div class = "row">
         <div class="col-sm-4">
             <div>
                 <ul class="list-group-flush " style="padding-left:0;">
                     <li class="list-group-item list-group-item-action bg-secondary text-white">Categories</li>
-                    <ul class="list-inline list-group-item-light text-dark" th:each="cat : ${recipe.categories}" style="margin: 5px;">
+                    <ul class="list-inline list-group-item-light text-dark" th:each="cat : ${recipe.categoryList}" style="margin: 5px;">
                         <li class="list-inline-item" th:remove="all">Category 1</li>
                         <li class="list-inline-item" th:remove="all">Category 2</li>
-                        <li class="list-inline-item" th:text="${cat.description}"></li>
+                        <li class="list-inline-item" th:text="${cat}"></li>
                     </ul>
                     <li class="list-group-item list-group-item-action bg-secondary text-white">Prep Time</li>
                     <ul class="list-group">

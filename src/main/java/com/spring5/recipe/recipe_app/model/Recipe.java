@@ -5,8 +5,11 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import static java.lang.String.valueOf;
 
 @Data
 @EqualsAndHashCode(exclude = "notes")
@@ -25,6 +28,10 @@ public class Recipe {
     private String source;
     private String url;
 
+    @ElementCollection
+    private List<String> categoryList = new ArrayList<>();
+
+
     @Lob
     private String directions;
 
@@ -40,10 +47,6 @@ public class Recipe {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
     private Set<Ingredient> ingredients = new HashSet<>();
 
-    @ManyToMany
-    @JoinTable(name = "recipe_category", joinColumns = @JoinColumn(name = "recipe_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
-    private Set<Category> categories = new HashSet<>();
-
     public void setNotes(Notes notes) {
         this.notes = notes;
         notes.setRecipe(this);
@@ -52,5 +55,15 @@ public class Recipe {
         ingredient.setRecipe(this);
         this.ingredients.add(ingredient);
         return this;
+    }
+    public void addEnumCategoryToList(Categories cat){
+        List<String> enumNames = Stream.of(Categories.values()).map(Categories::name)
+                .collect(Collectors.toList());
+
+        for(String category: enumNames){
+            if(category.equalsIgnoreCase(valueOf(cat))){
+                this.categoryList.add(category);
+            }
+        }
     }
 }

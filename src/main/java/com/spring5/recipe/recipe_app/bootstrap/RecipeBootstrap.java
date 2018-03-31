@@ -1,7 +1,6 @@
 package com.spring5.recipe.recipe_app.bootstrap;
 
 import com.spring5.recipe.recipe_app.model.*;
-import com.spring5.recipe.recipe_app.repositories.CategoryRepository;
 import com.spring5.recipe.recipe_app.repositories.RecipeRepository;
 import com.spring5.recipe.recipe_app.repositories.UnitOfMeasureRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -15,16 +14,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static java.lang.String.valueOf;
+
 @Slf4j
 @Component
 public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEvent>{
 
-    private CategoryRepository categoryRepository;
     private RecipeRepository recipeRepository;
     private UnitOfMeasureRepository unitOfMeasureRepository;
 
-    public RecipeBootstrap(CategoryRepository categoryRepository, RecipeRepository recipeRepository, UnitOfMeasureRepository unitOfMeasureRepository) {
-        this.categoryRepository = categoryRepository;
+    public RecipeBootstrap(RecipeRepository recipeRepository, UnitOfMeasureRepository unitOfMeasureRepository) {
         this.recipeRepository = recipeRepository;
         this.unitOfMeasureRepository = unitOfMeasureRepository;
     }
@@ -79,22 +78,6 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
         UnitOfMeasure pintUom =pintUomOptional.get();
         UnitOfMeasure ounceUom =ounceUomOptional.get();
 
-        //categories
-        Optional<Category> americanCatOptional = categoryRepository.findByDescription("American");
-        if(!americanCatOptional.isPresent()){
-            throw new RuntimeException("Category Not Found");
-        }
-
-        Optional<Category> mexicanCatOptional = categoryRepository.findByDescription("Mexican");
-        if(!mexicanCatOptional.isPresent()){
-            throw new RuntimeException("Category Not Found");
-        }
-
-
-        //get categories
-        Category american = americanCatOptional.get();
-        Category mexican = mexicanCatOptional.get();
-
 
         //first recipe -- Guacamole
 
@@ -103,6 +86,10 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
         guac.setPrepTime(10);
         guac.setCookTime(0);
         guac.setDifficulty(Difficulty.EASY);
+        List<String> catList = new ArrayList<>();
+        catList.add(valueOf(Categories.AMERICAN));
+        catList.add(valueOf(Categories.MEXICAN));
+        guac.setCategoryList(catList);
         guac.setDirections("1 Cut avocado, remove flesh: Cut the avocados in half. Remove seed. Score the inside of the avocado with a blunt knife and scoop out the flesh with a spoon.Place in a bowl.\n" +
                 "\n" +
                 "2 Mash with a fork: Using a fork, roughly mash the avocado. (Don't overdo it! The guacamole should be a little chunky.)\n" +
@@ -148,9 +135,6 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
         guac.addIngredient(new Ingredient("black pepper-freshly grated", new BigDecimal(1),dashUom));
         guac.addIngredient(new Ingredient("ripe tomato-chopped, seeds and pulp removed", new BigDecimal(.5),eachUom));
 
-        guac.getCategories().add(american);
-        guac.getCategories().add(mexican);
-
         recipes.add(guac);
 
 
@@ -160,6 +144,10 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
         chknTacos.setPrepTime(20);
         chknTacos.setCookTime(15);
         chknTacos.setDifficulty(Difficulty.MODERATE);
+        List<String> catList2 = new ArrayList<>();
+        catList2.add(valueOf(Categories.AMERICAN));
+        catList2.add(valueOf(Categories.MEXICAN));
+        chknTacos.setCategoryList(catList2);
         chknTacos.setDirections("1 Prepare a gas or charcoal grill for medium-high, direct heat.\n" +
                 "\n" +
                 "2 Make the marinade and coat the chicken: In a large bowl, stir together the chili powder, oregano, cumin, sugar, salt, garlic and orange zest. Stir in the orange juice and olive oil to make a loose paste. Add the chicken to the bowl and toss to coat all over.\n" +
@@ -214,9 +202,6 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
         chknTacos.addIngredient(new Ingredient("sour cream-thinned with the milk",new BigDecimal(.5),cupUom));
         chknTacos.addIngredient(new Ingredient("milk",new BigDecimal(.25),cupUom));
         chknTacos.addIngredient(new Ingredient("lime",new BigDecimal(1),eachUom));
-
-        chknTacos.getCategories().add(american);
-        chknTacos.getCategories().add(mexican);
 
         recipes.add(chknTacos);
 

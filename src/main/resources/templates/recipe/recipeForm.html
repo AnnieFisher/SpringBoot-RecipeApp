@@ -49,19 +49,15 @@
                                     <label>Categories:</label>
                                 </div>
                                 <div class="col-md-9 form-group">
-                                    <div class="radio">
+                                    <div class="radio" th:each="categoryValue : ${T(com.spring5.recipe.recipe_app.model.Categories).values()}">
                                         <label>
-                                            <input type="checkbox" value=""/>
-                                            Cat 1
+                                            <input type="checkbox" th:field="*{categoryList}" th:value="${categoryValue.name()}" th:text="${categoryValue.name()}"/>
                                         </label>
                                     </div>
-                                    <div class="radio" th:remove="all">
-                                        <label>
-                                            <input type="checkbox" value=""/>
-                                            Cat 2
-                                        </label>
-                                    </div>
+
                                 </div>
+
+
                             </div>
                             <div class="row">
                                 <div class="col-md-3 form-group">
