@@ -25,6 +25,19 @@
         <a class="btn btn-outline-secondary btn-sm" href="" th:href="@{'/'}">All Recipes</a>
     </nav>
 
+    <div class="row">
+        <div class="col-md-6 mx-auto mb-3" >
+            <img th:if="${recipe.image == null}" src="../../static/images/recipe.jpeg"  th:src="@{/images/recipe.jpeg}"width="500" height="300">
+
+            <img th:unless="${recipe.image == null}" src="" th:src="@{'/recipe/' + ${recipe.id} + '/recipeImage'}" width="500" height="300">
+
+        </div>
+        <div class="col-md-1">
+            <a class="btn btn-default" href="#"
+               th:href="@{'/recipe/' + ${recipe.id} + '/image'}" role="button">Change Image</a>
+        </div>
+    </div>
+
     <div class = "row">
         <div class="col-sm-4">
             <div>

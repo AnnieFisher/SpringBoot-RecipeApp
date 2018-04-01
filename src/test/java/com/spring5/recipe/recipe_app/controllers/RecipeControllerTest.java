@@ -38,8 +38,8 @@ public class RecipeControllerTest {
         Recipe recipe = new Recipe();
         recipe.setId(1L);
 
-
         when(recipeService.findById(anyLong())).thenReturn(recipe);
+
         mockMvc.perform(get("/recipe/1/show"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("recipe/recipeDetails"))
@@ -50,7 +50,8 @@ public class RecipeControllerTest {
     public void getNewRecipe()throws Exception{
         RecipeCommand command = new RecipeCommand();
 
-        mockMvc.perform(get("/recipe/new")).andExpect(status().isOk())
+        mockMvc.perform(get("/recipe/new"))
+                .andExpect(status().isOk())
                 .andExpect(view().name("recipe/recipeForm"))
                 .andExpect(model().attributeExists("recipe"));
     }
