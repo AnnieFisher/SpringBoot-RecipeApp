@@ -1,14 +1,14 @@
 package com.spring5.recipe.recipe_app.controllers;
 
 import com.spring5.recipe.recipe_app.commands.RecipeCommand;
+import com.spring5.recipe.recipe_app.exceptions.NotFoundException;
 import com.spring5.recipe.recipe_app.services.RecipeService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import static java.lang.Long.valueOf;
 
@@ -53,5 +53,34 @@ public class RecipeController {
         return "redirect:/";
     }
 
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(NotFoundException.class)
+    public ModelAndView handleNotFound(Exception e){
+
+        log.error("Handling not found exception");
+        log.error(e.getMessage());
+
+        ModelAndView modelAndView = new ModelAndView();
+
+        modelAndView.setViewName("404error");
+        modelAndView.addObject("exception", e);
+
+        return modelAndView;
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(NumberFormatException.class)
+    public ModelAndView handleNumberFormat(Exception e){
+
+        log.error("Handling Number Format Exception");
+        log.error(e.getMessage());
+
+        ModelAndView modelAndView = new ModelAndView();
+
+        modelAndView.setViewName("400error");
+        modelAndView.addObject("exception", e);
+
+        return modelAndView;
+    }
 
 }

@@ -1,6 +1,7 @@
 package com.spring5.recipe.recipe_app.controllers;
 
 import com.spring5.recipe.recipe_app.commands.RecipeCommand;
+import com.spring5.recipe.recipe_app.exceptions.NotFoundException;
 import com.spring5.recipe.recipe_app.model.Recipe;
 import com.spring5.recipe.recipe_app.services.RecipeService;
 import org.junit.Before;
@@ -92,5 +93,22 @@ public class RecipeControllerTest {
                 .andExpect(view().name("redirect:/"));
 
         verify(recipeService, times(1)).deleteById(anyLong());
+    }
+
+    @Test
+    public void testGetRecipeNumberFormatException() throws Exception {
+
+        mockMvc.perform(get("/recipe/asdf/show"))
+                .andExpect(status().isBadRequest())
+                .andExpect(view().name("400error"));
+    }
+
+    @Test
+    public void testGetRecipeNotFound() throws Exception {
+        when(recipeService.findById(anyLong())).thenThrow(NotFoundException.class);
+
+        mockMvc.perform(get("/recipe/1/show"))
+                .andExpect(status().isNotFound())
+                .andExpect(view().name("404error"));
     }
 }
