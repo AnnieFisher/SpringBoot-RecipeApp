@@ -5,6 +5,7 @@ import com.spring5.recipe.recipe_app.repositories.RecipeRepository;
 import com.spring5.recipe.recipe_app.repositories.UnitOfMeasureRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationListener;
+import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +19,7 @@ import static java.lang.String.valueOf;
 
 @Slf4j
 @Component
+@Profile("default")
 public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEvent>{
 
     private RecipeRepository recipeRepository;
@@ -33,7 +35,7 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
     @Transactional
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
         recipeRepository.saveAll(getRecipes());
-        log.debug("ON APPLICATION EVENT");
+        log.debug("Loading h2 bootstrap");
     }
 
     private List<Recipe> getRecipes(){
@@ -42,31 +44,31 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
         //unit of measure
         Optional<UnitOfMeasure> tspUomOptional = unitOfMeasureRepository.findByDescription("Teaspoon");
         if(!tspUomOptional.isPresent()){
-            throw new RuntimeException("UOM Not Found");
+            throw new RuntimeException("UOM Not Found-Teaspoon");
         }
         Optional<UnitOfMeasure> tbspUomOptional = unitOfMeasureRepository.findByDescription("Tablespoon");
         if(!tbspUomOptional.isPresent()){
-            throw new RuntimeException("UOM Not Found");
+            throw new RuntimeException("UOM Not Found-Tablespoon");
         }
         Optional<UnitOfMeasure> cupUomOptional = unitOfMeasureRepository.findByDescription("Cup");
         if(!cupUomOptional.isPresent()){
-            throw new RuntimeException("UOM Not Found");
+            throw new RuntimeException("UOM Not Found-Cup");
         }
         Optional<UnitOfMeasure> dashUomOptional = unitOfMeasureRepository.findByDescription("Dash");
         if(!dashUomOptional.isPresent()){
-            throw new RuntimeException("UOM Not Found");
+            throw new RuntimeException("UOM Not Found-Dash");
         }
         Optional<UnitOfMeasure> eachUomOptional = unitOfMeasureRepository.findByDescription(" ");
         if(!eachUomOptional.isPresent()){
-            throw new RuntimeException("UOM Not Found");
+            throw new RuntimeException("UOM Not Found-emptyString");
         }
         Optional<UnitOfMeasure> pintUomOptional = unitOfMeasureRepository.findByDescription("Pint");
         if(!pintUomOptional.isPresent()){
-            throw new RuntimeException("UOM Not Found");
+            throw new RuntimeException("UOM Not Found-Pint");
         }
         Optional<UnitOfMeasure> ounceUomOptional = unitOfMeasureRepository.findByDescription("Ounce");
         if(!ounceUomOptional.isPresent()){
-            throw new RuntimeException("UOM Not Found");
+            throw new RuntimeException("UOM Not Found-Ounce");
         }
 
         // get uom
